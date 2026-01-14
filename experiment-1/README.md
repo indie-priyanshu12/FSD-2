@@ -3,3 +3,5 @@
 2. Create react components.
 3. Making a build in HTML, CSS and JS.
 4. Deploying on Netlify.
+
+Made by Priyanshu Kashyap - 23BCG10009
