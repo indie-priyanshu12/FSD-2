@@ -1,16 +1,33 @@
-# React + Vite
+## Aim
+Implement Routing in SPA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Steps Performed
 
-Currently, two official plugins are available:
+1. **Installed React Router DOM** - Added `react-router-dom` package to manage client-side routing in the application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. **Created SPA Component** - Developed the main `Spa.jsx` component using `BrowserRouter` to enable routing functionality.
 
-## React Compiler
+3. **Added Navigation Links** - Implemented React Router `Link` components in the TopBar for Home, About, and Contact pages with styled navigation.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+4. **Created Route Definitions** - Set up `Routes` components to map URL paths to different components.
 
-## Expanding the ESLint configuration
+5. **Created Component Files** - Built three page components:
+   - `Home.jsx` - Home page with a form containing name and email fields
+   - `About.jsx` - About page with company information form
+   - `Contact.jsx` - Contact page with contact form (name, phone, message)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+6. **Styled Components with CSS** - Created corresponding CSS files for each component:
+   - `Spa.css` - Styling for navigation bar with links and hover effects
+   - `Home.css` - Form styling for Home page
+   - `About.css` - Form styling for About page
+   - `Contact.css` - Form styling for Contact page
+
+## Learning Outcomes
+
+1. Learned how to implement single-page applications that navigate between different views without full page reloads, improving user experience.
+
+2. Mastered the use of BrowserRouter, Routes, Route, and Link components to manage navigation and URL patterns in React applications.
+
+3. Developed skills in structuring applications with multiple reusable components and managing component-specific styling with separate CSS files.
+
+4. Learned to style interactive navigation elements including hover effects and proper CSS selectors to target nested elements.
