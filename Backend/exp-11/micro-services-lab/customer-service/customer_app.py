@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -18,8 +19,9 @@ def get_account_details(user_id):
 
     # Call Order Service
     try:
+        ORDER_SERVICE_URL = os.environ.get("ORDER_SERVICE_URL", "http://localhost:5002")
         response = requests.get(
-            f"http://localhost:5002/orders/user/{user_id}",
+            f"{ORDER_SERVICE_URL}/orders/user/{user_id}",
             timeout=3
         )
 
