@@ -2,10 +2,12 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import Schema, fields, validate, ValidationError
 import pymysql
+from flask_cors import CORS
 
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
+CORS(app)
 
 # Update MySQL credentials below
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql12823924:fCn6naPVLE@sql12.freesqldatabase.com/sql12823924'
