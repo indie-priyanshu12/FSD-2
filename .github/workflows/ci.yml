@@ -1,4 +1,4 @@
-name: Fullstack Tests
+name: Fullstack CI/CD Pipeline
 
 on:
   push:
@@ -6,14 +6,8 @@ on:
   pull_request:
 
 jobs:
-
-  backend-test:
+  test:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: Testing/Backend
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,35 +17,82 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install backend dependencies & test
+        working-directory: Testing/Backend
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-
-      - name: Run backend tests
-        run: |
-          source venv/bin/activate
           pytest
-
-  frontend-test:
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: Testing/Frontend
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install frontend dependencies & test
+        working-directory: Testing/Frontend
+        run: |
+          npm install
+          npm test -- --watchAll=false
 
-      - name: Run frontend tests
-        run: npm test -- --watchAll=false
+  security-scan:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+
+  build-and-push:
+    needs: security-scan
+    runs-on: ubuntu-latest
+    # Need packages: write to push to GHCR
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Backend Image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./experiment-20/backend
+          push: ${{ github.event_name == 'push' }}
+          tags: ghcr.io/indie-priyanshu12/fsd-2-backend:latest
+
+      - name: Build and push Frontend Image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./experiment-20/frontend
+          push: ${{ github.event_name == 'push' }}
+          tags: ghcr.io/indie-priyanshu12/fsd-2-frontend:latest
+
+  deploy:
+    needs: build-and-push
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Deployment Webhook
+        run: |
+          if [ -z "${{ secrets.DEPLOY_WEBHOOK_URL }}" ]; then
+            echo "DEPLOY_WEBHOOK_URL secret is not set. Skipping webhook execution."
+          else
+            curl -X POST "${{ secrets.DEPLOY_WEBHOOK_URL }}"
+            echo "Deployment webhook triggered successfully!"
+          fi
