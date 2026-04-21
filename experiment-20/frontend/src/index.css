@@ -4,7 +4,7 @@
   --primary: #2d3436;
   --accent: #0984e3;
   --accent-light: #74b9ff;
-  --bg-gradient: linear-gradient(135deg, #f4ffc1 20%, #ffdf9b 100%);
+  --bg-gradient: linear-gradient(135deg, #f4ffc1 50%, #fb9b6b 100%);
   --glass: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(255, 255, 255, 0.3);
   --text-main: #2d3436;
