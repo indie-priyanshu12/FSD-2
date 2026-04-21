@@ -22,6 +22,8 @@ class Student(db.Model):
     uid = db.Column(db.String(20), unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer, nullable=False)
+    course = db.Column(db.String(100), nullable=False)
+    gender = db.Column(db.String(20), nullable=False)
 
     def to_dict(self):
         return {
@@ -29,6 +31,8 @@ class Student(db.Model):
             "uid": self.uid,
             "name": self.name,
             "age": self.age,
+            "course": self.course,
+            "gender": self.gender,
         }
 
 # ===============================
@@ -37,6 +41,8 @@ class Student(db.Model):
 class StudentSchema(Schema):
     name = fields.Str(required=True, validate=validate.Length(min=2))
     age = fields.Int(required=True, validate=validate.Range(min=1, max=120))
+    course = fields.Str(required=True, validate=validate.Length(min=2))
+    gender = fields.Str(required=True, validate=validate.OneOf(["Male", "Female", "Other"]))
     uid = fields.Str(required=True)
 
 student_schema = StudentSchema()

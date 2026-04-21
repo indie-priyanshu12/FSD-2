@@ -19,7 +19,11 @@ def client():
     return app.test_client()
 
 def test_create_student(client):
-    response = client.post("/students", json={"name": "Student-1"})
+    response = client.post("/students", json={
+        "name": "Student-1",
+        "course": "Computer Science",
+        "gender": "Male"
+    })
     assert response.status_code == 201
     assert response.json["name"] == "Student-1"
 
@@ -30,7 +34,11 @@ def test_get_students(client):
 
 def test_get_student(client):
     # First, create a student to ensure there is one to retrieve
-    create_response = client.post("/students", json={"name": "Student-2"})
+    create_response = client.post("/students", json={
+        "name": "Student-2",
+        "course": "Computer Science",
+        "gender": "Female"
+    })
     student_id = create_response.json["id"]
 
     # Now, retrieve the student by ID
@@ -40,7 +48,11 @@ def test_get_student(client):
 
 def test_update_student(client):
     # First, create a student to ensure there is one to update
-    create_response = client.post("/students", json={"name": "Student-3"})
+    create_response = client.post("/students", json={
+        "name": "Student-3",
+        "course": "Computer Science",
+        "gender": "Other"
+    })
     student_id = create_response.json["id"]
 
     # Now, update the student's name
@@ -50,7 +62,11 @@ def test_update_student(client):
 
 def test_delete_student(client):
     # First, create a student to ensure there is one to delete
-    create_response = client.post("/students", json={"name": "Student-4"})
+    create_response = client.post("/students", json={
+        "name": "Student-4",
+        "course": "Computer Science",
+        "gender": "Male"
+    })
     student_id = create_response.json["id"]
 
     # Now, delete the student

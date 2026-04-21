@@ -36,7 +36,9 @@ def create_student():
     student = {
         "id": current_id,
         "name": data["name"],
-        "age": data.get("age", None)
+        "age": data.get("age", None),
+        "course": data.get("course", "N/A"),
+        "gender": data.get("gender", "N/A")
     }
 
     students.append(student)
@@ -74,6 +76,8 @@ def update_student(student_id):
 
     student["name"] = data.get("name", student["name"])
     student["age"] = data.get("age", student["age"])
+    student["course"] = data.get("course", student.get("course", "N/A"))
+    student["gender"] = data.get("gender", student.get("gender", "N/A"))
 
     return jsonify(student), 200
 
