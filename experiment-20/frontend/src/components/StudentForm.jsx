@@ -25,7 +25,7 @@ const StudentForm = () => {
 
         try {
             // Updated to match the fields added to backend: uid, name, age, course, gender
-            const response = await axios.post('http://localhost:5001/students', {
+            const response = await axios.post('https://students-backend-000t.onrender.com/students', {
                 ...formData,
                 age: parseInt(formData.age)
             });
@@ -35,13 +35,13 @@ const StudentForm = () => {
                 setFormData({ uid: '', name: '', age: '', course: '', gender: 'Male' });
             }
         } catch (error) {
-            const errorMsg = error.response?.data?.validation_errors 
+            const errorMsg = error.response?.data?.validation_errors
                 ? Object.values(error.response.data.validation_errors).flat().join(', ')
                 : 'Connection to backend failed. Please check if the server is running.';
-            
-            setMessage({ 
-                text: errorMsg, 
-                type: 'error' 
+
+            setMessage({
+                text: errorMsg,
+                type: 'error'
             });
         } finally {
             setLoading(false);
@@ -64,51 +64,51 @@ const StudentForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label>University ID (UID)</label>
-                    <input 
-                        type="text" 
-                        name="uid" 
-                        value={formData.uid} 
-                        onChange={handleChange} 
+                    <input
+                        type="text"
+                        name="uid"
+                        value={formData.uid}
+                        onChange={handleChange}
                         placeholder="e.g. 23BCG10XXX"
-                        required 
+                        required
                     />
                 </div>
 
                 <div className="input-group">
                     <label>Full Name</label>
-                    <input 
-                        type="text" 
-                        name="name" 
-                        value={formData.name} 
-                        onChange={handleChange} 
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         placeholder="Enter your full name"
-                        required 
+                        required
                     />
                 </div>
 
                 <div className="input-group">
                     <label>Age</label>
-                    <input 
-                        type="number" 
-                        name="age" 
-                        value={formData.age} 
-                        onChange={handleChange} 
+                    <input
+                        type="number"
+                        name="age"
+                        value={formData.age}
+                        onChange={handleChange}
                         placeholder="Min 1, Max 120"
                         min="1"
                         max="120"
-                        required 
+                        required
                     />
                 </div>
 
                 <div className="input-group">
                     <label>Course</label>
-                    <input 
-                        type="text" 
-                        name="course" 
-                        value={formData.course} 
-                        onChange={handleChange} 
+                    <input
+                        type="text"
+                        name="course"
+                        value={formData.course}
+                        onChange={handleChange}
                         placeholder="e.g. B.Tech Computer Science"
-                        required 
+                        required
                     />
                 </div>
 
@@ -116,32 +116,32 @@ const StudentForm = () => {
                     <label>Gender</label>
                     <div className="radio-group">
                         <label className="radio-option">
-                            <input 
-                                type="radio" 
-                                name="gender" 
-                                value="Male" 
-                                checked={formData.gender === 'Male'} 
-                                onChange={handleChange} 
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="Male"
+                                checked={formData.gender === 'Male'}
+                                onChange={handleChange}
                             />
                             Male
                         </label>
                         <label className="radio-option">
-                            <input 
-                                type="radio" 
-                                name="gender" 
-                                value="Female" 
-                                checked={formData.gender === 'Female'} 
-                                onChange={handleChange} 
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="Female"
+                                checked={formData.gender === 'Female'}
+                                onChange={handleChange}
                             />
                             Female
                         </label>
                         <label className="radio-option">
-                            <input 
-                                type="radio" 
-                                name="gender" 
-                                value="Other" 
-                                checked={formData.gender === 'Other'} 
-                                onChange={handleChange} 
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="Other"
+                                checked={formData.gender === 'Other'}
+                                onChange={handleChange}
                             />
                             Other
                         </label>
@@ -152,7 +152,7 @@ const StudentForm = () => {
                     {loading ? 'Processing...' : 'Complete Registration'}
                 </button>
             </form>
-            
+
             <div className="form-footer">
                 <p>&copy; {new Date().getFullYear()} Priyanshu Kashyap - 23BCG10009. All rights reserved.</p>
             </div>
