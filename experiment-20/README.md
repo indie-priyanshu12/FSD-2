@@ -10,3 +10,10 @@ Here are the 5 key learning outcomes from this experiment:
 4. **SQL Database Integration**: Learned how to effectively configure and connect a production application to a live SQL database to persistently store, manage, and retrieve student records.
 5. **Production Reliability Workflows**: Bridged the gap between local testing and production by building a reliable deployment process that prioritizes application stability, uptime, and automated rollouts upon verified commits.
 
+## Screenshots
+
+![Backend tests in backend container](screenshots/Screenshot%202026-04-22%20233359.png)
+![Successful Testing of Frontend and Backend](screenshots/Screenshot%202026-04-22%20233459.png)
+![Docker containers](screenshots/Screenshot%202026-04-22%20233540.png)
+![Frontend form](screenshots/Screenshot%202026-04-22%20233654.png)
+![Depoyed after successful ci](screenshots/Screenshot%202026-04-22%20233712.png)
