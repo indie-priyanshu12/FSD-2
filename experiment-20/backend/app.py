@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Update MySQL credentials below
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql12823924:fCn6naPVLE@sql12.freesqldatabase.com/sql12823924'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql12824049:xbJP4KxKdU@sql12.freesqldatabase.com/sql12823924'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
